@@ -1,0 +1,13 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+main {
+    height: 100dvh;
+}
+
+.title{
+    margin-bottom: 100px;
+}

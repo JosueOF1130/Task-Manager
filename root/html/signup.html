@@ -1,0 +1,37 @@
+<div
+  id="signup-view"
+  class="auth-view signup-view d-flex flex-column flex-wrap justify-content-center align-items-center"
+>
+  <h2>Sign up</h2>
+  <form id="signup-form" class="d-flex flex-column mb-5">
+    <div class="mb-3 username">
+      <label for="username">Username</label>
+      <input
+        class="form-control signup-username-input"
+        type="text"
+        placeholder="Username"
+        id="signup-username"
+        aria-label="username"
+      />
+    </div>
+    <div class="mb-3 email">
+      <label for="signup-email" class="form-label">Email address</label>
+      <input type="email" 
+      class="form-control signup-email-input" 
+      placeholder="Email"
+      id="signup-email" />
+    </div>
+    <div class="mb-3 password">
+      <label for="signup-password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control signup-password-input"
+        placeholder="Password"
+        id="signup-password"
+      />
+    </div>
+    <button type="button" class="btn btn-dark form-control" id="signup-btn">Submit</button>
+  </form>
+  <p>Already have an account?</p>
+  <button id="switch-to-login" class="btn btn-dark" type="button">Login</button>
+</div>
