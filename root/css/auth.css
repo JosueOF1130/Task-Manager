@@ -6,8 +6,9 @@
 
 main {
     height: 100dvh;
+	user-select: none;
 }
 
-.title{
+/* .title{
     margin-bottom: 100px;
-}
+} */

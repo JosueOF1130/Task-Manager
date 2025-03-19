@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title / Icon -->
+    <title>Tasks</title>
+    <link rel="icon" href="../images/notes.png" type="image/x-icon">
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/tasks.css">
+
+    <!-- Custom JS -->
+    <script type="module" src="../js/tasks.js" defer ></script>
+
+</head>
+<body>
+    <main class="container">
+        <h2 class="greeting" id="greeting"></h2>
+        <div class="tasks-container p-5">
+            <div class="form-container m-auto">
+
+                <h5>Add task</h5>
+                
+                <form id="task-form" class="mt-4 task-form">
+                    
+                    <div class="mb-3">
+                        <label for="inputTask" class="form-label">Task</label>
+                        <input type="text" class="form-control" id="inputTask">
+                    </div>
+
+                    <label for="priorities">Priority</label>
+                    <div class="mb-3 btn-group w-100" role="group" id="priorities">
+                        <input type="radio" class="btn-check" name="priority" id="low" autocomplete="off" checked>
+                        <label class="btn btn-outline-success" for="low">Low</label>
+
+                        <input type="radio" class="btn-check" name="priority" id="medium" autocomplete="off">
+                        <label class="btn btn-outline-warning" for="medium">Medium</label>
+
+                        <input type="radio" class="btn-check" name="priority" id="high" autocomplete="off">
+                        <label class="btn btn-outline-danger" for="high">High</label>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary w-100" id="add-task-btn">
+                            <svg width="25px" height="25px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#ffffff" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>plus</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-362.000000, -1037.000000)" fill="#ffffff"> <path d="M390,1049 L382,1049 L382,1041 C382,1038.79 380.209,1037 378,1037 C375.791,1037 374,1038.79 374,1041 L374,1049 L366,1049 C363.791,1049 362,1050.79 362,1053 C362,1055.21 363.791,1057 366,1057 L374,1057 L374,1065 C374,1067.21 375.791,1069 378,1069 C380.209,1069 382,1067.21 382,1065 L382,1057 L390,1057 C392.209,1057 394,1055.21 394,1053 C394,1050.79 392.209,1049 390,1049" id="plus" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg> 
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+            <button class="logout-btn btn btn-danger">Log out</button>
+            <div class="tasks"></div>
+        </div>
+    </main>
+</body>
+</html>
