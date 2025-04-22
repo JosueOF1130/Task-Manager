@@ -1,7 +1,52 @@
 :root {
     /* Colors */
+    --light: #f8f9fa;
+    --gray: #495057;
+    --dark: #212529;
+    --danger: #d90429;
+    --danger-pastel: #ee6055;
+    --warning-pastel: #ffd97d;
+    --success-pastel: #60d394;
 }
 
 body {
     font-family: 'Sono Regular', sans-serif;
+    user-select: none;
+}
+
+
+/* trash icon */
+.trash-icon path, .edit-icon path {
+    stroke: var(--gray);
+    transition: all 0.2s ease-in-out;
+}
+
+
+.trash-btn:hover, .edit-btn:hover {
+    svg path {
+        scale: 105%;
+    }
+}
+.trash-btn:hover {
+    svg path {
+        stroke: var(--danger);
+    }
+}
+
+/* priority icons */
+
+.priority-icon {
+    stroke-width: 1px;
+}
+
+.low-priority-icon path {
+    stroke: var(--success-pastel);
+}
+
+.mid-priority-icon path {
+    stroke: var(--warning-pastel);
+}
+
+.high-priority-icon path {
+    stroke: var(--danger-pastel);
 }
