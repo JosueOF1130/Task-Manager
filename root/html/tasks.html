@@ -23,9 +23,12 @@
 
 </head>
 <body>
+    <header class="container d-flex justify-content-between align-items-center mb-4 py-4">
+        <h2 class="greeting m-0" id="greeting"></h2>
+        <button class="logout-btn btn btn-dark" id="logout-btn">Log out</button>
+    </header>
     <main class="container">
-        <h2 class="greeting mt-5" id="greeting"></h2>
-        <div class="tasks-container mt-5">
+        <div class="tasks-container">
 
             <div class="form-container m-auto mb-5">
 
@@ -40,29 +43,69 @@
 
                     <label for="priorities">Priority</label>
                     <div class="mb-3 btn-group w-100" role="group" id="priorities">
-                        <input type="radio" class="btn-check" name="priority" id="low" autocomplete="off" value="low">
-                        <label class="btn btn-outline-dark" for="low">Low</label>
+                        <input type="radio" class="btn-check priority-input" name="priority" id="low-priority" autocomplete="off" value="low">
+                        <label class="btn pri-btn" for="low-priority">Low</label>
 
-                        <input type="radio" class="btn-check" name="priority" id="medium" autocomplete="off" value="medium" checked>
-                        <label class="btn btn-outline-dark" for="medium">Medium</label>
+                        <input type="radio" class="btn-check priority-input" name="priority" id="medium-priority" autocomplete="off" value="medium" checked>
+                        <label class="btn pri-btn" for="medium-priority">Medium</label>
 
-                        <input type="radio" class="btn-check" name="priority" id="high" autocomplete="off" value="high">
-                        <label class="btn btn-outline-dark" for="high">High</label>
+                        <input type="radio" class="btn-check priority-input" name="priority" id="high-priority" autocomplete="off" value="high">
+                        <label class="btn pri-btn" for="high-priority">High</label>
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-dark w-100" id="add-task-btn">Add task</button>
+                        <button type="button" class="add-task-btn btn w-100" id="add-task-btn">Add task</button>
                     </div>
                     
                 </form>
             </div>
-            <button class="logout-btn btn btn-dark" id="logout-btn">Log out</button>
             <div class="tasks"></div>
             
-            <div class="container task-list-container" id="task-list-container">
-                <ul class="task-list" id="task-list">
-
+            <div class="container task-list-container mb-4" id="task-list-container">
+                <h2 id="tasks-title">Tasks:</h2>
+                <ul class="task-list p-0 m-0" id="task-list">
                 </ul>
             </div>
+
+            <!-- edit task modal container -->
+             <div class="edit-task-modal-container" id="edit-task-modal-container">  
+                <!-- Modal -->
+                <div class="modal fade" id="edit-task-modal" tabindex="-1" aria-labelledby="Edit task" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="edit-task-label">Edit Task</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="edit-task-form" class="mt-4 task-form">
+                                    
+                                <div class="mb-3">
+                                    <label for="inputTask" class="form-label">Task</label>
+                                    <input type="text" class="form-control" id="edit-input-task">
+                                </div>
+
+                                <label for="edit-priorities">Priority</label>
+                                <div class="mb-3 btn-group w-100" role="group" id="edit-priorities">
+                                    <input type="radio" class="btn-check priority-input" name="edit-priority" id="edit-low-priority" autocomplete="off" value="low">
+                                    <label class="btn pri-btn" for="edit-low-priority">Low</label>
+
+                                    <input type="radio" class="btn-check priority-input" name="edit-priority" id="edit-medium-priority" autocomplete="off" value="medium" checked>
+                                    <label class="btn pri-btn" for="edit-medium-priority">Medium</label>
+
+                                    <input type="radio" class="btn-check priority-input" name="edit-priority" id="edit-high-priority" autocomplete="off" value="high">
+                                    <label class="btn pri-btn" for="edit-high-priority">High</label>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="button" class="add-task-btn btn w-100" id="add-task-btn">Update task</button>
+                                </div>
+                                
+                            </form>
+
+                        </div>
+                    </div>
+                    </div>
+                </div>
+             </div>
 
         </div>
     </main>

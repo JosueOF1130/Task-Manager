@@ -1,6 +1,90 @@
+body {
+    /* border: 1px solid blue */
+}
+
+header {
+    border-bottom: 2px solid var(--dark);
+}
+
+
+main {
+    
+    /* border: 1px solid red; */
+}
+
 .form-container {
     border-radius: 10px;
-    border: 1px solid black;
+    border: 1px solid var(--dark);
     padding: 15px;
     max-width: 780px;
 }
+
+
+.pri-btn {
+    color: var(--dark);
+    border: 1px solid var(--dark);
+    transition: all 0.2s ease-in-out;
+}
+
+.pri-btn:hover {
+    color: var(--dark) !important;
+    border: 1px solid var(--dark) !important;
+    background-color: var(--light) !important;
+}
+
+.priority-input:checked + .pri-btn  {
+    background-color: var(--dark) !important;
+    border: 1px solid var(--dark) !important;
+    color: var(--light) !important;
+}
+
+
+
+
+.task-list-container {
+    max-width: 780px;
+    border-radius: 10px;
+    border: 1px solid var(--dark);
+    padding: 25px;
+}
+
+
+
+.task-item {
+    list-style-type: none;
+    border-radius: 10px;
+    border: 1px solid var(--dark);
+    margin-bottom: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.task-item:hover {
+    background-color: var(--light);
+}
+
+.task-item, .task-item label, .trash-btn {
+    cursor: pointer;
+}
+
+
+.add-task-btn{
+    background-color: var(--dark);
+    color: var(--light);
+    transition: all 0.2s ease-in-out;
+}
+
+.add-task-btn:hover {
+    background-color: var(--gray);
+    color: var(--light);
+}
+
+
+.trash-btn, .edit-btn {
+    transition: all 0.5s ease-in-out;
+
+}
+
+
+
+
+
