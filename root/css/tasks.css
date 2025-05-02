@@ -1,16 +1,10 @@
-body {
-    /* border: 1px solid blue */
-    color: var(--dark);
-}
-
-
-body.dark {
-    background: var(--dark);
-    color: var(--light);
-}
 
 header {
     border-bottom: 2px solid var(--dark);
+}
+
+body.dark header {
+    border-bottom: 2px solid var(--light);
 }
 
 
@@ -100,6 +94,9 @@ body.dark .task-item:hover {
     cursor: pointer;
 }
 
+body.dark .add-task-btn {
+    border: 2px solid var(--light);
+}
 
 .add-task-btn{
     background-color: var(--dark);
@@ -141,3 +138,8 @@ body.dark .task-item:hover {
     border-radius: 50px !important;
     
 }
+
+body.dark .filters-card-body {
+    border: 1px solid var(--light);
+}
+

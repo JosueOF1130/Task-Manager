@@ -249,6 +249,13 @@ function SetEventListeners() {
             ReadTasks();
         });
     });
+
+    //change app theme
+    const themeBtn = document.getElementById("theme-switcher-btn");
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+    });
+
     
 }
 
