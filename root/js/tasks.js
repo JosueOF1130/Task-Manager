@@ -2,7 +2,7 @@
 import { db, auth, onAuthStateChanged, getDoc, doc, addDoc, collection, getDocs, updateDoc, deleteDoc } from "./db.js";
 // import { Logout } from "./auth.js";
 import Icons from "./icons.js";
-import { CreateTask, GetTasks, DeleteTask } from "./crud.js";
+import { CreateTask, GetTasks, SetTask, DeleteTask } from "./crud.js";
 // 2. GLOBAL VARIABLES
 
 const greetViewBox = document.getElementById("greeting");
@@ -10,6 +10,8 @@ const logoutBtn = document.getElementById("logout-btn");
 const addTaskBtn = document.getElementById("add-task-btn");
 
 const modalContainer = document.getElementById("edit-task-modal");
+
+let emptyList = false;
 
 // 3. FUNCTIONS
 
@@ -44,36 +46,41 @@ async function AddTask() {
         return;
     }
 
-    let priorityNumber;
+    let priorityNumber = parseInt(priority);
 
-    switch (priority) {
-        case "low":
-            priorityNumber = 1;
-            break;
-        case "medium":
-            priorityNumber = 2;
-            break;
-        case "high":
-            priorityNumber = 3;
-            break;
-        default:
-            priorityNumber = 2;
-    }
     try {
         const newTask = await CreateTask(task, priorityNumber);
         //TODO show success toast
-        alert("Task added successfully");
+        // alert("Task added successfully");
 
         //manually add task to the list
         const taskList = document.getElementById("task-list");
         const markup = `<li class="task-item p-2 d-flex align-items-center justify-content-between " data-id="${newTask.id}">
-        <div class="task-check">
-            <input type="checkbox" class="form-check-input me-2" id="task-${newTask.id}">
+        <div class="task-check d-flex align-items-center">
+        ${ priorityNumber == 1 ? Icons.lowPriorityIcon : priorityNumber == 2 ? Icons.midPriorityIcon : Icons.highPriorityIcon}
+            <input type="checkbox" class="form-check-input task-checkbox me-2 mt-0" id="task-${newTask.id}">
             <label for="task-${newTask.id}">${task}</label>
         </div>
-        <button class="trash-btn btn p-2" id="delete-task-${newTask.id}">${Icons.trashIcon}</button>
-    </li>`;
+
+        <div class="btn-group" role="group" aria-label="edit and delete buttons">
+            <button type="button" class="edit-btn btn w-50 p-2" id="edit-task-${newTask.id}" data-bs-toggle="modal" data-bs-target="#edit-task-modal">${Icons.editIcon}</button>
+            <button type="button" class="trash-btn btn p-2" id="delete-task-${newTask.id}">${Icons.trashIcon}</button>
+        </div>
+
+        
+        </li>`;
     taskList.innerHTML += markup;
+    const tempTask = {
+        task: task,
+        priority: priorityNumber,
+        completed: false
+    };
+    const checkbox = document.getElementById(`task-${newTask.id}`);
+    checkbox.addEventListener("change", () => ToggleTask(newTask.id));
+    const deleteBtn = document.getElementById(`delete-task-${newTask.id}`);
+    deleteBtn.addEventListener("click", () => TrashTask(newTask.id));
+    const editBtn = document.getElementById(`edit-task-${newTask.id}`);
+    editBtn.addEventListener("click", () => OpenEditModal(newTask.id, tempTask));
 
     //clear input field
     taskField.value = "";
@@ -88,18 +95,20 @@ async function AddTask() {
 
 //read tasks
 async function ReadTasks() {
+    const filter = document.querySelector('input[name="filter"]:checked').value;
+    const sort = document.querySelector('input[name="sort"]:checked').value;
     try {
-        const tasks = await GetTasks();
+        const tasks = await GetTasks(filter, sort);
         let markup = "";
         tasks.forEach((task) => {
             const data = task.data();
-            console.log(data);
-            console.log(data.completed)
+            // console.log(data);
+            // console.log(data.completed)
             markup += `<li class="task-item p-2 d-flex align-items-center justify-content-between " data-id="${task.id}">
             <div class="task-check d-flex align-items-center">
-                <input type="checkbox" class="form-check-input me-2 mt-0" id="task-${task.id}" ${data.completed ? "checked" : ""}>
+            ${ data.priority == 1 ? Icons.lowPriorityIcon : data.priority == 2 ? Icons.midPriorityIcon : Icons.highPriorityIcon}
+                <input type="checkbox" class="form-check-input task-checkbox me-2 mt-0" id="task-${task.id}" ${data.completed ? "checked" : ""}>
                 <label for="task-${task.id}">${data.task}</label>
-                ${ data.priority == 1 ? Icons.lowPriorityIcon : data.priority == 2 ? Icons.midPriorityIcon : Icons.highPriorityIcon}
             </div>
 
             <div class="btn-group" role="group" aria-label="edit and delete buttons">
@@ -113,14 +122,14 @@ async function ReadTasks() {
 
         const taskList = document.getElementById("task-list");
         taskList.innerHTML = markup;
-        //checkbox event listener
+        
         tasks.forEach((task) => {
             const checkbox = document.getElementById(`task-${task.id}`);
             checkbox.addEventListener("change", () => ToggleTask(task.id));
             const deleteBtn = document.getElementById(`delete-task-${task.id}`);
             deleteBtn.addEventListener("click", () => TrashTask(task.id));
             const editBtn = document.getElementById(`edit-task-${task.id}`);
-            editBtn.addEventListener("click", () => EditTask(task.id, task.data()));
+            editBtn.addEventListener("click", () => OpenEditModal(task.id, task.data()));
         });
     } catch (error) {
         //TODO show error toast
@@ -130,12 +139,27 @@ async function ReadTasks() {
 }
 
 //update task
-async function EditTask(taskId, task) {
-    console.log(taskId, task.completed, task.task, task.priority);
-    document.getElementById("edit-input-task").value = task.task;
-    document.getElementById(task.priority === 1 ? "edit-low-priority" : task.priority === 2 ? "edit-medium-priority" : "edit-high-priority").checked = true;
-
+//opens the edit modal with the values of the selected task
+async function OpenEditModal(taskId, task) {
+    //get input fields elements
+    const taskInput = document.getElementById("edit-input-task");
+    const priorityInput = document.getElementById(task.priority === 1 ? "edit-low-priority" : task.priority === 2 ? "edit-medium-priority" : "edit-high-priority");
+    //set input values to the task values saved in firebase
+    taskInput.value = task.task;
+    priorityInput.checked = true;
+    //set event listener to the update task button
+    document.getElementById("update-task-btn").addEventListener("click", async () => {
+        try {
+            //updates task
+            await SetTask(taskId, taskInput.value, priorityInput.value, task.completed);
+            //refresh the list to show updated task
+            ReadTasks();
+        } catch(error) {
+            console.log(error.message);
+        }
+    });
 }
+
 
 //delete task
 async function TrashTask(taskId) {
@@ -200,14 +224,34 @@ async function ToggleTask(taskId) {
 
 
 
+
 function SetEventListeners() {
     //logout button
     logoutBtn.addEventListener("click", () => {});
     // logoutBtn.addEventListener("click", Logout);
     //add task button
     addTaskBtn.addEventListener("click", AddTask);
-    //Filter button
+    //Filter options
+    const filterInputs = document.querySelectorAll('.filter-input');
+
+    //sort options
+    const sortInputs = document.querySelectorAll('.sort-input');
+    sortInputs.forEach(option => {
+        option.addEventListener('change', ReadTasks);
+    });
+
+    // Add change event listeners to each input
+    filterInputs.forEach(option => {
+        option.addEventListener('change', () => {
+            sortInputs.forEach(input => {
+                input.disabled = option.value === "all" ? true : false;
+            });
+            ReadTasks();
+        });
+    });
+    
 }
+
 
 
 async function LoadView(user) {

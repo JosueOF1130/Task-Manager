@@ -22,15 +22,20 @@
     <script type="module" src="../js/tasks.js" defer ></script>
 
 </head>
-<body>
+<body class="">
     <header class="container d-flex justify-content-between align-items-center mb-4 py-4">
         <h2 class="greeting m-0" id="greeting"></h2>
-        <button class="logout-btn btn btn-dark" id="logout-btn">Log out</button>
+        <div class="header-side">
+            <button type="button" class="theme-switcher-btn btn" id="theme-switcher-btn">
+                <svg class="moon-icon" width="25px" height="25px" viewBox="0 0 32.00 32.00" xmlns="http://www.w3.org/2000/svg" stroke-width="0.00032" transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.408"></g><g id="SVGRepo_iconCarrier"> <g id="Lager_94" data-name="Lager 94" transform="translate(0)"> <path id="Path_70" data-name="Path 70" d="M12.516,4.509A12,12,0,0,0,22.3,19.881,12.317,12.317,0,0,0,24,20a11.984,11.984,0,0,0,3.49-.514,12.1,12.1,0,0,1-9.963,8.421A12.679,12.679,0,0,1,16,28,12,12,0,0,1,12.516,4.509M16,0a16.5,16.5,0,0,0-2.212.15A16,16,0,0,0,16,32a16.526,16.526,0,0,0,2.01-.123A16.04,16.04,0,0,0,31.85,18.212,16.516,16.516,0,0,0,32,15.944,1.957,1.957,0,0,0,30,14a2.046,2.046,0,0,0-1.23.413A7.942,7.942,0,0,1,24,16a8.35,8.35,0,0,1-1.15-.08,7.995,7.995,0,0,1-5.264-12.7A2.064,2.064,0,0,0,16.056,0Z" fill="#ffffff"></path> </g> </g></svg>
+            </button>
+            <button type="button" class="logout-btn btn btn-dark" id="logout-btn">Log out</button>
+        </div> 
     </header>
     <main class="container">
         <div class="tasks-container">
 
-            <div class="form-container m-auto mb-5">
+            <div class="form-container m-auto mb-4">
 
                 <h5>Add task</h5>
                 
@@ -43,13 +48,13 @@
 
                     <label for="priorities">Priority</label>
                     <div class="mb-3 btn-group w-100" role="group" id="priorities">
-                        <input type="radio" class="btn-check priority-input" name="priority" id="low-priority" autocomplete="off" value="low">
+                        <input type="radio" class="btn-check priority-input" name="priority" id="low-priority" autocomplete="off" value="1">
                         <label class="btn pri-btn" for="low-priority">Low</label>
 
-                        <input type="radio" class="btn-check priority-input" name="priority" id="medium-priority" autocomplete="off" value="medium" checked>
+                        <input type="radio" class="btn-check priority-input" name="priority" id="medium-priority" autocomplete="off" value="2" checked>
                         <label class="btn pri-btn" for="medium-priority">Medium</label>
 
-                        <input type="radio" class="btn-check priority-input" name="priority" id="high-priority" autocomplete="off" value="high">
+                        <input type="radio" class="btn-check priority-input" name="priority" id="high-priority" autocomplete="off" value="3">
                         <label class="btn pri-btn" for="high-priority">High</label>
                     </div>
                     <div class="mb-3">
@@ -61,10 +66,42 @@
             <div class="tasks"></div>
             
             <div class="container task-list-container mb-4" id="task-list-container">
-                <h2 id="tasks-title">Tasks:</h2>
+                <div class="task-container-header mb-4">
+                    <h2 id="tasks-title">Tasks:</h2>
+                    <button class="btn p-0 task-filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#filters-collapse-container" aria-expanded="false" aria-controls="filters-collapse-container">
+                        <svg class="filter-icon" width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 3H5C3.58579 3 2.87868 3 2.43934 3.4122C2 3.8244 2 4.48782 2 5.81466V6.50448C2 7.54232 2 8.06124 2.2596 8.49142C2.5192 8.9216 2.99347 9.18858 3.94202 9.72255L6.85504 11.3624C7.49146 11.7206 7.80967 11.8998 8.03751 12.0976C8.51199 12.5095 8.80408 12.9935 8.93644 13.5872C9 13.8722 9 14.2058 9 14.8729L9 17.5424C9 18.452 9 18.9067 9.25192 19.2613C9.50385 19.6158 9.95128 19.7907 10.8462 20.1406C12.7248 20.875 13.6641 21.2422 14.3321 20.8244C15 20.4066 15 19.4519 15 17.5424V14.8729C15 14.2058 15 13.8722 15.0636 13.5872C15.1959 12.9935 15.488 12.5095 15.9625 12.0976C16.1903 11.8998 16.5085 11.7206 17.145 11.3624L20.058 9.72255C21.0065 9.18858 21.4808 8.9216 21.7404 8.49142C22 8.06124 22 7.54232 22 6.50448V5.81466C22 4.48782 22 3.8244 21.5607 3.4122C21.1213 3 20.4142 3 19 3Z" fill="#1C274C"></path> </g></svg>
+                      </button>
+                    <div class="collapse filters-collapse-container mt-2" id="filters-collapse-container">
+                        <div class="card card-body filters-card-body p-2">
+
+                            <label for="filter-group" class="mb-2">Filter</label>
+                            <div class="btn-group mb-3" role="group" id="filter-group">
+                                <input type="radio" class="btn-check filter-input" name="filter" id="filter-all" autocomplete="off" checked value="all">
+                                <label class="btn filter-btn" for="filter-all">All</label>
+
+                                <input type="radio" class="btn-check filter-input" name="filter" id="filter-name" autocomplete="off" value="task">
+                                <label class="btn filter-btn" for="filter-name">Name</label>
+                                
+                                <input type="radio" class="btn-check filter-input" name="filter" id="filter-priority" autocomplete="off" value="priority">
+                                <label class="btn filter-btn" for="filter-priority">Priority</label>
+                            </div>
+
+                            <label for="sort-options-group">Sort</label>
+                            <div class="btn-group" role="group" id="sort-options-group">
+                                <input type="radio" class="btn-check sort-input" name="sort" id="sort-asc" autocomplete="off" checked value="asc" disabled>
+                                <label class="btn sort-btn" for="sort-asc">Ascending</label>
+                                <input type="radio" class="btn-check sort-input" name="sort" id="sort-desc" autocomplete="off" value="desc" disabled>
+                                <label class="btn sort-btn" for="sort-desc">Descending</label>
+                            </div>
+
+                        </div>
+                      </div>
+                </div>
                 <ul class="task-list p-0 m-0" id="task-list">
                 </ul>
             </div>
+            
+              
 
             <!-- edit task modal container -->
              <div class="edit-task-modal-container" id="edit-task-modal-container">  
@@ -96,7 +133,7 @@
                                     <label class="btn pri-btn" for="edit-high-priority">High</label>
                                 </div>
                                 <div class="mb-3">
-                                    <button type="button" class="add-task-btn btn w-100" id="add-task-btn">Update task</button>
+                                    <button type="button" class="add-task-btn btn w-100" id="update-task-btn" data-bs-dismiss="modal">Update task</button>
                                 </div>
                                 
                             </form>
